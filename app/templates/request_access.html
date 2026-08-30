@@ -1,0 +1,134 @@
+
+{% extends 'base.html' %}
+
+
+{% block title %}
+Request access | Suprajit
+{% endblock %}
+
+
+{% block body %}
+
+<!-- Authentication Page -->
+<main class="auth-shell">
+
+    <!-- Access Request Card -->
+    <section class="auth-card">
+
+
+        <!-- Brand Logo and Name -->
+        <div class="brand">
+
+            <span>▥</span>
+            Suprajit
+
+        </div>
+
+
+        <!-- Page Category -->
+        <p class="eyebrow">
+            ACCESS REQUEST
+        </p>
+
+
+        <!-- Page Title -->
+        <h1 class="page-title">
+            Request Access
+        </h1>
+
+
+        <!-- Access Request Information -->
+        <p class="text-secondary mb-4">
+            Your account will remain pending until an administrator
+            approves it.
+        </p>
+
+
+        <!-- Display Error Message -->
+        {% if error %}
+
+            <div class="alert alert-danger">
+                {{ error }}
+            </div>
+
+        {% endif %}
+
+
+        <!-- Display Success Message -->
+        {% if success %}
+
+            <div class="alert alert-success">
+                {{ success }}
+            </div>
+
+
+            <!-- Back to Sign In Button -->
+            <a
+                class="btn btn-outline-primary w-100"
+                href="/login"
+            >
+                Back to sign in
+            </a>
+
+
+        <!-- Display Access Request Form -->
+        {% else %}
+
+            <form method="post">
+
+
+                <!-- Username Input -->
+                <input
+                    name="username"
+                    class="form-control mb-3"
+                    placeholder="Username"
+                    required
+                >
+
+
+                <!-- Work Email Input -->
+                <input
+                    name="email"
+                    type="email"
+                    class="form-control mb-3"
+                    placeholder="Work email"
+                    required
+                >
+
+
+                <!-- Company Input -->
+                <input
+                    name="company"
+                    class="form-control mb-3"
+                    placeholder="Company"
+                >
+
+
+                <!-- Password Input -->
+                <input
+                    name="password"
+                    type="password"
+                    class="form-control mb-4"
+                    placeholder="Password"
+                    required
+                    minlength="8"
+                >
+
+
+                <!-- Submit Access Request -->
+                <button class="btn btn-primary w-100">
+                    Send access request
+                </button>
+
+
+            </form>
+
+        {% endif %}
+
+    </section>
+
+</main>
+
+
+{% endblock %}
+```

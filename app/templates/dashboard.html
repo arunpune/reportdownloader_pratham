@@ -1,0 +1,329 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+User Console | Suprajit
+{% endblock %}
+
+{% block body %}
+
+<!-- Navigation Bar -->
+<nav class="navbar navbar-dark portal-nav">
+    <div class="container">
+
+        <!-- Brand / Dashboard Link -->
+        <a class="navbar-brand fw-semibold" href="/dashboard">
+            ▥ Suprajit
+        </a>
+
+        <!-- User Account Information -->
+        <div class="nav-user-area d-flex align-items-center gap-3 text-white small">
+
+            <!-- Show Admin Console button for admin users -->
+            {% if is_admin_here %}
+                <a class="btn btn-sm btn-light" href="/admin">
+                    Admin Console
+                </a>
+            {% endif %}
+
+            <!-- Company Name and User Email -->
+            <span class="account-identity">
+
+                <span>
+                    {{ user.company or 'Company not provided' }}
+                </span>
+
+                <!-- Divider between company and email -->
+                <span class="account-divider" aria-hidden="true"></span>
+
+                <span>
+                    {{ user.email }}
+                </span>
+
+            </span>
+
+            <!-- Sign Out -->
+            <form method="post" action="/logout">
+                <button class="btn btn-sm btn-outline-light">
+                    Sign out
+                </button>
+            </form>
+
+        </div>
+    </div>
+</nav>
+
+
+<!-- Main Content -->
+<main class="container py-4 py-lg-5">
+
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h1 class="page-title">
+            User Console
+        </h1>
+
+        
+
+    </div>
+
+
+    <!-- Download Policy -->
+    <div class="alert alert-info border-0">
+
+        <b>Download policy:</b>
+
+        You can view reports up to
+        {{ latest_available_date.strftime('%d %B %Y') }}.
+
+        Reports for the current date will be processed
+        and available after 24 hours (1 day).
+
+    </div>
+
+
+    <!-- Report Search Section -->
+    <section class="card shadow-sm border-0 mb-4">
+
+        <div class="card-body p-4">
+
+            <h2 class="section-title">
+                Search the report library
+            </h2>
+
+            <!-- Search and Filter Form -->
+            <form class="row g-3 mt-1">
+
+                <!-- Recipe Filter -->
+                <div class="col-md-4">
+
+                    <label class="form-label">
+                        Recipe / I-QUBE
+                    </label>
+
+                    <select name="recipe" class="form-select">
+
+                        <option value="">
+                            All recipes
+                        </option>
+
+                        <!-- Display Available Recipes -->
+                        {% for item in recipes %}
+                            <option
+                                value="{{ item }}"
+                                {% if filters.recipe == item %}
+                                    selected
+                                {% endif %}
+                            >
+                                {{ item }}
+                            </option>
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- Report Date Filter -->
+                <div class="col-md-3">
+
+                    <label class="form-label">
+                        Report Date
+                    </label>
+
+                    <input
+                        type="date"
+                        name="report_date"
+                        value="{{ filters.report_date }}"
+                        max="{{ latest_available_date.isoformat() }}"
+                        class="form-control"
+                    >
+
+                </div>
+
+
+                <!-- Serial Number Filter -->
+                <div class="col-md-3">
+
+                    <label class="form-label">
+                        Serial Number
+                    </label>
+
+                    <input
+                        name="serial"
+                        value="{{ filters.serial }}"
+                        class="form-control"
+                    >
+
+                </div>
+
+
+                <!-- Search Button -->
+                <div class="col-md-2 d-grid align-self-end">
+
+                    <button class="btn btn-primary">
+                        Search reports
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- Report Result Summary -->
+    <div class="mb-3 result-summary">
+
+        <h2 class="section-title mb-0">
+
+            {{ reports|length }}
+            Report{{ '' if reports|length == 1 else 's' }}
+
+            found for the date of:
+
+            {{ selected_date.strftime('%d %B %Y') }}
+
+            for Serial Number:
+
+            {{ filters.serial or 'All' }}
+
+        </h2>
+
+    </div>
+
+
+    <!-- Report Table -->
+    <section class="card shadow-sm border-0 overflow-hidden">
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
+
+                <!-- Table Header -->
+                <thead>
+
+                    <tr>
+                        <th>File</th>
+                        <th>Recipe</th>
+                        <th>Date</th>
+                        <th>Serial</th>
+                        <th>Result</th>
+                        <th class="text-end">Action</th>
+                    </tr>
+
+                </thead>
+
+
+                <!-- Table Body -->
+                <tbody>
+
+                    <!-- Loop Through Reports -->
+                    {% for report in reports %}
+
+                        <tr>
+
+                            <!-- File Name -->
+                            <td>
+
+                                <span class="xlsx">
+                                    XLSX
+                                </span>
+
+                                <span class="font-monospace small">
+                                    {{ report.filename }}
+                                </span>
+
+                            </td>
+
+
+                            <!-- Recipe -->
+                            <td>
+                                {{ report.recipe }}
+                            </td>
+
+
+                            <!-- Report Date -->
+                            <td>
+                                {{ report.report_date.strftime('%d %b %Y') }}
+                            </td>
+
+
+                            <!-- Serial Number -->
+                            <td>
+                                {{ report.serial }}
+                            </td>
+
+
+                            <!-- Report Result -->
+                            <td>
+
+                                {% if report.result == 'Pass' %}
+
+                                    <span class="badge text-bg-success">
+                                        Pass
+                                    </span>
+
+                                {% elif report.result == 'Fail' %}
+
+                                    <span class="badge text-bg-danger">
+                                        Fail
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge text-bg-secondary">
+                                        Unknown
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- Download Action -->
+                            <td class="text-end">
+
+                                <a
+                                    class="btn btn-sm btn-primary"
+                                    href="/download/{{ report.id }}"
+                                >
+                                    ↓ Download
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+                    <!-- Display When No Reports Are Found -->
+                    {% else %}
+
+                        <tr>
+
+                            <td
+                                colspan="6"
+                                class="text-center py-5 text-secondary"
+                            >
+                                No matching reports found for the
+                                selected date and Serial Number.
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</main>
+
+{% endblock %}
+```

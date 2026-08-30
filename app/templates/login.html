@@ -1,0 +1,103 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+Sign in | Suprajit
+{% endblock %}
+
+
+{% block body %}
+
+<!-- Authentication Page -->
+<main class="auth-shell">
+
+    <!-- Login Card -->
+    <section class="auth-card">
+
+        <!-- Brand Logo and Name -->
+        <div class="brand">
+            <span>▥</span> Suprajit
+        </div>
+
+
+        <!-- Portal Label -->
+        <p class="eyebrow">
+            SECURE REPORT PORTAL
+        </p>
+
+
+        <!-- Page Title -->
+        <h1 class="page-title">
+            Sign in
+        </h1>
+
+
+        <!-- Login Description -->
+        <p class="text-secondary mb-4">
+            Sign in with your email address to search completed
+            production reports.
+        </p>
+
+
+        <!-- Display Error Message -->
+        {% if error %}
+            <div class="alert alert-danger">
+                {{ error }}
+            </div>
+        {% endif %}
+
+
+        <!-- Login Form -->
+        <form method="post">
+
+            <!-- Email Address Input -->
+            <label class="form-label">
+                Email address
+            </label>
+
+            <input
+                name="email"
+                type="email"
+                class="form-control mb-3"
+                required
+                autofocus
+                autocomplete="email"
+            >
+
+
+            <!-- Password Input -->
+            <label class="form-label">
+                Password
+            </label>
+
+            <input
+                name="password"
+                type="password"
+                class="form-control mb-4"
+                required
+                autocomplete="current-password"
+            >
+
+
+            <!-- Sign In Button -->
+            <button class="btn btn-primary w-100">
+                Sign in →
+            </button>
+
+        </form>
+
+
+        <!-- Request Account Link -->
+        <p class="text-center small mt-4 mb-0">
+            Need access?
+            <a href="/request-access">
+                Request an account
+            </a>
+        </p>
+
+    </section>
+
+</main>
+
+{% endblock %}
+```

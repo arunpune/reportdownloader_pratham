@@ -1,0 +1,259 @@
+:root {
+  --navy: #0d2342;
+  --blue: #2563eb;
+  --page-title-size: 2.25rem;
+  --page-title-color: #16355d;
+}
+
+body {
+  background: #f5f7fb;
+  color: #1e293b;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.portal-nav {
+  background: var(--navy);
+}
+
+.navbar-brand {
+  font-size: 1.2rem;
+}
+
+.portal-nav .container {
+  flex-wrap: nowrap;
+}
+
+.nav-user-area {
+  margin-left: auto;
+  justify-content: flex-end;
+  font-size: 0.875rem;
+}
+
+.account-identity {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+}
+
+.account-divider {
+  width: 2px;
+  height: 26px;
+  background: rgb(255 255 255 / 70%);
+}
+
+.page-title {
+  margin: 0;
+  color: var(--page-title-color);
+  font-size: var(--page-title-size);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+
+.page-subtitle {
+  color: #64748b;
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.section-title {
+  color: #243b5a;
+  font-size: 1.125rem;
+  font-weight: 650;
+  line-height: 1.4;
+}
+
+.alert {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.form-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.form-control,
+.form-select,
+.btn {
+  font-size: 0.9375rem;
+}
+
+.auth-shell {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: radial-gradient(circle at 10% 10%, #2a6098, transparent 35%), linear-gradient(135deg, #07182f, #153e6a);
+}
+
+.auth-card {
+  width: min(100%, 430px);
+  padding: 38px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 24px 60px #06172d99;
+}
+
+.auth-card .page-title {
+  margin-bottom: 8px;
+}
+
+.brand {
+  margin-bottom: 35px;
+  color: #16355d;
+  font-size: 20px;
+}
+
+.brand span {
+  display: inline-grid;
+  width: 27px;
+  height: 27px;
+  margin-right: 7px;
+  place-items: center;
+  border-radius: 7px;
+  background: #2f73e6;
+  color: #fff;
+}
+
+.eyebrow {
+  margin-bottom: 7px;
+  color: #70809a;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.card {
+  border-radius: 14px;
+}
+
+.xlsx {
+  padding: 5px;
+  border-radius: 4px;
+  background: #dff7ed;
+  color: #13795b;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.table thead th {
+  background: #f8fafc;
+  color: #748197;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.table tbody td {
+  font-size: 0.9rem;
+}
+
+code {
+  color: #446080;
+}
+
+.btn-primary {
+  border-color: var(--blue);
+  background: var(--blue);
+}
+
+.admin-profile-card {
+  position: sticky;
+  top: 24px;
+}
+
+.admin-layout .card {
+  border: 1px solid #cbd5e1 !important;
+}
+
+.admin-profile-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e5eaf1;
+}
+
+.admin-avatar {
+  display: inline-grid;
+  width: 52px;
+  height: 52px;
+  flex: 0 0 52px;
+  place-items: center;
+  border-radius: 14px;
+  background: #e8f0ff;
+  color: var(--blue);
+  font-size: 1.35rem;
+  font-weight: 750;
+}
+
+.admin-details > div {
+  padding: 14px 0;
+  border-bottom: 1px solid #edf1f6;
+}
+
+.admin-details > div:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.admin-details dt {
+  margin-bottom: 4px;
+  color: #748197;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.admin-details dd {
+  margin: 0;
+  color: #243b5a;
+  font-size: 0.9rem;
+  overflow-wrap: anywhere;
+}
+
+.admin-users-table th,
+.admin-users-table td {
+  padding: 0.9rem 0.75rem;
+}
+
+.admin-users-table td {
+  white-space: nowrap;
+}
+
+@media (max-width: 767.98px) {
+  :root {
+    --page-title-size: 1.75rem;
+  }
+
+  body {
+    font-size: 15px;
+  }
+
+  .nav-user-area {
+    gap: 8px !important;
+    font-size: 0.75rem;
+  }
+
+  .account-identity {
+    gap: 8px;
+  }
+
+  .result-summary {
+    align-items: flex-start !important;
+    flex-direction: column;
+  }
+
+  .result-summary small {
+    white-space: normal !important;
+  }
+
+  .admin-profile-card {
+    position: static;
+  }
+}

@@ -1,0 +1,412 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+Admin Console | Suprajit
+{% endblock %}
+
+
+{% block body %}
+
+<!-- Navigation Bar -->
+<nav class="navbar navbar-dark portal-nav">
+
+    <div class="container">
+
+        <!-- Brand and Admin Badge -->
+        <a class="navbar-brand fw-semibold" href="/admin">
+
+            ▥ Suprajit
+
+            <span class="badge text-bg-light text-dark ms-2">
+                Admin
+            </span>
+
+        </a>
+
+
+        <!-- Navigation User Area -->
+        <div class="nav-user-area d-flex align-items-center gap-3 text-white small">
+
+            <!-- User Console Link -->
+            <a class="btn btn-sm btn-outline-light" href="/dashboard">
+                User Console
+            </a>
+
+
+            <!-- Company and User Email -->
+            <span class="account-identity">
+
+                <span>
+                    {{ user.company or 'Company not provided' }}
+                </span>
+
+                <!-- Divider -->
+                <span
+                    class="account-divider"
+                    aria-hidden="true"
+                ></span>
+
+                <span>
+                    {{ user.email }}
+                </span>
+
+            </span>
+
+
+            <!-- Sign Out Button -->
+            <form method="post" action="/logout">
+
+                <button class="btn btn-sm btn-outline-light">
+                    Sign out
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- Main Content -->
+<main class="container py-4 py-lg-5">
+
+    <!-- Page Title -->
+    <h1 class="page-title mb-4">
+        Admin Console
+    </h1>
+
+
+    <!-- Admin Layout -->
+    <div class="row g-4 align-items-start admin-layout">
+
+
+        <!-- Admin Profile Sidebar -->
+        <aside class="col-lg-3">
+
+            <section class="card admin-profile-card shadow-sm border-0">
+
+                <div class="card-body p-4">
+
+
+                    <!-- Admin Profile Header -->
+                    <div class="admin-profile-heading">
+
+                        <!-- Admin Avatar -->
+                        <span class="admin-avatar">
+                            {{ (user.username or 'A')[0]|upper }}
+                        </span>
+
+
+                        <div>
+
+                            <!-- Administrator Badge -->
+                            <span class="badge text-bg-dark mb-2">
+                                Administrator
+                            </span>
+
+
+                            <!-- Admin Username -->
+                            <h2 class="section-title mb-0">
+                                {{ user.username }}
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Admin Account Details -->
+                    <dl class="admin-details mb-0">
+
+
+                        <!-- Email -->
+                        <div>
+
+                            <dt>Email</dt>
+
+                            <dd>
+                                {{ user.email }}
+                            </dd>
+
+                        </div>
+
+
+                        <!-- Company -->
+                        <div>
+
+                            <dt>Company</dt>
+
+                            <dd>
+                                {{ user.company or 'Not provided' }}
+                            </dd>
+
+                        </div>
+
+
+                        <!-- Role -->
+                        <div>
+
+                            <dt>Role</dt>
+
+                            <dd>
+                                Admin
+                            </dd>
+
+                        </div>
+
+
+                        <!-- Account Status -->
+                        <div>
+
+                            <dt>Status</dt>
+
+                            <dd>
+
+                                <span class="badge text-bg-success">
+                                    {{ user.status }}
+                                </span>
+
+                            </dd>
+
+                        </div>
+
+
+                        <!-- Account Creation Date -->
+                        <div>
+
+                            <dt>Account created</dt>
+
+                            <dd>
+                                {{ user.created_at.strftime('%d %B %Y, %H:%M') }}
+                            </dd>
+
+                        </div>
+
+
+                    </dl>
+
+                </div>
+
+            </section>
+
+        </aside>
+
+
+        <!-- User Accounts Section -->
+        <section class="col-lg-9">
+
+
+            <!-- User Accounts Header -->
+            <div
+                class="d-flex justify-content-between align-items-end gap-3 mb-3"
+            >
+
+                <div>
+
+                    <h2 class="section-title mb-0">
+                        User Accounts
+                    </h2>
+
+                </div>
+
+
+                <!-- Total Number of Users -->
+                <span class="badge text-bg-light text-dark border">
+
+                    {{ users|length }}
+                    User{{ '' if users|length == 1 else 's' }}
+
+                </span>
+
+            </div>
+
+
+            <!-- User Accounts Table -->
+            <div class="card shadow-sm border-0 overflow-hidden">
+
+                <!-- Responsive Table -->
+                <div class="table-responsive">
+
+                    <table
+                        class="table align-middle mb-0 admin-users-table"
+                    >
+
+
+                        <!-- Table Header -->
+                        <thead>
+
+                            <tr>
+
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Company</th>
+                                <th>Role</th>
+                                <th>Requested</th>
+                                <th>Status</th>
+                                <th class="text-end">
+                                    Action
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <!-- Table Body -->
+                        <tbody>
+
+
+                            <!-- Loop Through User Accounts -->
+                            {% for target in users %}
+
+                                <tr>
+
+
+                                    <!-- Username -->
+                                    <td class="fw-semibold">
+                                        {{ target.username }}
+                                    </td>
+
+
+                                    <!-- Email -->
+                                    <td>
+                                        {{ target.email }}
+                                    </td>
+
+
+                                    <!-- Company -->
+                                    <td>
+                                        {{ target.company or '—' }}
+                                    </td>
+
+
+                                    <!-- User Role -->
+                                    <td>
+
+                                        <span
+                                            class="badge text-bg-light text-dark border"
+                                        >
+                                            User
+                                        </span>
+
+                                    </td>
+
+
+                                    <!-- Account Request Date -->
+                                    <td>
+                                        {{ target.created_at.strftime('%d %b %Y %H:%M') }}
+                                    </td>
+
+
+                                    <!-- User Account Status -->
+                                    <td>
+
+                                        <span
+                                            class="badge
+                                            {% if target.status == 'APPROVED' %}
+                                                text-bg-success
+                                            {% elif target.status == 'PENDING' %}
+                                                text-bg-warning
+                                            {% else %}
+                                                text-bg-secondary
+                                            {% endif %}"
+                                        >
+                                            {{ target.status }}
+                                        </span>
+
+                                    </td>
+
+
+                                    <!-- User Actions -->
+                                    <td class="text-end">
+
+                                        <div class="btn-group btn-group-sm">
+
+
+                                            <!-- Approve or Reject Pending User -->
+                                            {% if target.status == 'PENDING' %}
+
+                                                <form
+                                                    method="post"
+                                                    action="/admin/users/{{ target.id }}/approve"
+                                                >
+                                                    <button
+                                                        class="btn btn-success"
+                                                    >
+                                                        Approve
+                                                    </button>
+                                                </form>
+
+
+                                                <form
+                                                    method="post"
+                                                    action="/admin/users/{{ target.id }}/reject"
+                                                >
+                                                    <button
+                                                        class="btn btn-outline-danger"
+                                                    >
+                                                        Reject
+                                                    </button>
+                                                </form>
+
+
+                                            <!-- Disable Approved User -->
+                                            {% elif target.status == 'APPROVED' %}
+
+                                                <form
+                                                    method="post"
+                                                    action="/admin/users/{{ target.id }}/disable"
+                                                >
+                                                    <button
+                                                        class="btn btn-outline-danger"
+                                                    >
+                                                        Disable
+                                                    </button>
+                                                </form>
+
+                                            {% endif %}
+
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+
+                            <!-- Display Message When No Users Exist -->
+                            {% else %}
+
+                                <tr>
+
+                                    <td
+                                        colspan="7"
+                                        class="text-center py-5 text-secondary"
+                                    >
+                                        No user accounts are currently registered.
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</main>
+
+{% endblock %}
+```
